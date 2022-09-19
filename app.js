@@ -1,5 +1,4 @@
-
-
+const path = require('path');
 const express = require('express');
 
 /**
@@ -9,6 +8,13 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/touch-grass')
   .then(x => console.log('mongoose connected to ' + x.connections[0].name))
   .catch(err => console.log('mongoose connect error', err));
+
+/**
+ *  Import NPSService
+ */
+
+const NPSService = require('./services/nps.service');
+const myNPSService = new NPSService();
 
 /**
  * Import middlewares
@@ -50,8 +56,37 @@ app.use(
   })
 );
 
+app.use(express.static(path.resolve(__dirname, './public')))
+
 app.get('/', (req, res, next) => {
   res.render('index.hbs');
+});
+
+app.get('/parks', async (req, res, next) => {
+
+  const { skip = 0, limit = 50 } = req.query;
+  
+  try {
+
+    let myParkResponse = await myNPSService.getParks(skip, limit);
+
+    let parksArray = myParkResponse.data.data.map(element => ({
+      fullName: element.fullName,
+      description: element.description,
+      latitude: element.latitude,
+      longitude: element.longitude,
+      image: {
+        url: element.images[0].url,
+        altText: element.images[0].altText
+      }
+    }));
+
+    res.render('parks.hbs', { parksArray })
+
+  } catch (err) {
+    console.log('error while retrieving park data ', err);
+    res.json({ error: err })
+  }
 });
 
 app.get('/profile', isAuthenticated, (req, res, next) => {
@@ -60,7 +95,7 @@ app.get('/profile', isAuthenticated, (req, res, next) => {
 
 
 const authRoutes = require('./routes/auth.routes');
-app.use('/', isNotAuthenticated, authRoutes);
+app.use('/auth', isNotAuthenticated, authRoutes);
 
 
 module.exports = app;

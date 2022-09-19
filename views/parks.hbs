@@ -1,0 +1,25 @@
+<main>
+  <div class="parks-container">
+    {{#each parksArray}}
+      <div class="park">
+        <div class="park-image" style="background-image: url({{this.image.url}}), url(/images/nps-logo.png)" role="img" aria-label="{{this.image.altText}}"></div>
+        <h1 class="park-name">{{this.fullName}}</h1>
+        <p class="park-description">{{this.description}}</p>
+        <table class="park-latlong">
+          <thead>
+            <tr>
+              <th>Latitude</th>
+              <th>Longitude</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{this.latitude}}</td>
+              <td>{{this.longitude}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    {{/each}}
+  </div>
+</main>
