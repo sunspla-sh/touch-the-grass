@@ -41,13 +41,19 @@
                     </p>
                 </div>
               </div>
-            
           </div>
         </a>
       {{/each}}
     </div>
   </section>
   <section>
-    <h1 class="section-title">User Submitted Grass</h1>
+    <h4 class="page-title">Pages</h4>
+    <div class="page-container">
+      {{#each pageArray}}
+        <div class="page">
+          <a class="page-link {{#if this.active}}active{{/if}}" href="/national-grass?skip={{this.skip}}&limit={{this.limit}}">{{this.pageNumber}}</a>
+        </div>
+      {{/each}}
+    </div>
   </section>
 </main>

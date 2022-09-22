@@ -22,6 +22,14 @@ class NPSService {
     });
   }
 
+  getParkByCode(parkCode){
+    return this.axios.get(`/parks`, {
+      params: {
+        parkCode
+      }
+    })
+  }
+
 }
 
 module.exports = NPSService;

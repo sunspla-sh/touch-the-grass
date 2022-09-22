@@ -1,6 +1,8 @@
 :root {
   --primary-text: olivedrab;
   --primary-background: papayawhip;
+  --lh: 1.4rem;
+  --max-lines: 3;
 }
 
 body {
@@ -99,32 +101,117 @@ body {
   margin: 0 auto;
 }
 
-.parks-container .park {
+.parks-container .park-link{
+  text-decoration: none;
   width: 30%;
   display: flex;
+}
+
+.parks-container .park {
+  width: 100%;
+  display: flex;
   flex-direction: column;
+  margin-bottom: 3rem;
+  border: 1px solid var(--primary-text);
+  border-radius: 5px;
 }
 
 .parks-container .park:hover {
   transform: translateY(-10px);
+  cursor: pointer;
 }
+
+
 
 .parks-container .park .park-image{
   height: 250px;
   width: 100%;
   background-size: cover;
   background-position: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
-.parks-container .park .park-name {
-
+.parks-container .park .park-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-top: 1px solid var(--primary-text);
+  padding: 1rem;
+  color: var(--primary-text);
 }
 
-.parks-container .park .park-description {
+.parks-container .park .park-text .park-name {
+  margin-top: 0;
+  height: 2rem;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+
+.parks-container .park .park-text .park-description {
   margin-top: 0;
   flex: 1;
+  position: relative;  
 }
 
-.parks-container .park .park-latlong {
+.parks-container .park .park-text .park-description .park-overlay{
+  position: absolute;
+  top: 50%;
+  height: 50%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  background-color: rgb(255 239 213 / 91%);
+  box-shadow: 0px -30px 10px 10px rgb(255 239 213 / 91%)
+}
+
+.parks-container .park .park-text .park-address p {
+  margin: 0;
+}
+
+.parks-container .park .park-text .park-latlong {
   text-align: left;
+}
+
+
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 0;
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.page-container .page {
+  margin: 1rem;
+}
+
+.page-container .page:hover {
+  transform: translateY(-2px);
+  font-weight: bold;
+}
+
+.page-container .page .page-link {
+  text-decoration: none;
+  color: var(--primary-text);
+}
+
+.page-container .page .page-link.active {
+  font-weight: 900;
+  text-decoration: underline;
 }
